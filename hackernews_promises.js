@@ -68,48 +68,26 @@ function requestPromise(storyType){
     })
 }
 
-function run(){
-    requestPromise('top').then((stories) => {
-        const topStories = stories
+async function run(){
+    const topStories = await requestPromise('top')
+    const showStories = await requestPromise('show')
+    const askStories = await requestPromise('ask')
     
-        requestPromise('show').then((stories) => {
-            const showStories = stories
-    
-            requestPromise('ask').then((stories) => {
-                const askStories = stories
-
-                generateStoriesMessage(topStories, '*TOP STORIES*\n').then((topMessage) => {
-                    generateStoriesMessage(showStories, '*SHOW STORIES*\n').then((showMessage) => {
-                        generateStoriesMessage(askStories, '*ASK STORIES*\n').then((askMessage) => {
-                            
-                            bot.sendPhoto(CHANNEL_CHAT_ID, 'hn.png', {
-                                caption: 'Loading daily #hackernews'
-                            }).then(() => {
-                                console.log(topMessage)
-                                bot.sendMessage(CHANNEL_CHAT_ID, topMessage, {
-                                    parse_mode: 'markdown',
-                                    disable_web_page_preview: true
-                                }).then(() => {
-                                    console.log(showMessage)
-                                    bot.sendMessage(CHANNEL_CHAT_ID, showMessage, {
-                                        parse_mode: 'markdown',
-                                        disable_web_page_preview: true
-                                    }).then(() => {
-                                        console.log(askMessage)
-                                        bot.sendMessage(CHANNEL_CHAT_ID, askMessage, {
-                                            parse_mode: 'markdown',
-                                            disable_web_page_preview: true
-                                        })
-                                    })
-                                })
-                            })
-                        })
-                    })  
-                })
-            })
-        })
+    const topMessage = await generateStoriesMessage(topStories, '*TOP STORIES*\n')
+    const showMessage = await generateStoriesMessage(showStories, '*SHOW STORIES*\n')
+    const askMessage = await generateStoriesMessage(askStories, '*ASK STORIES*\n')
+                        
+    await bot.sendPhoto(CHANNEL_CHAT_ID, 'hn.png', {
+        caption: 'Loading daily #hackernews'
     })
+
+    messageOptions = {
+        parse_mode: 'markdown',
+        disable_web_page_preview: true
+    }
+    await bot.sendMessage(CHANNEL_CHAT_ID, topMessage, messageOptions)
+    await bot.sendMessage(CHANNEL_CHAT_ID, showMessage, messageOptions)
+    await bot.sendMessage(CHANNEL_CHAT_ID, askMessage, messageOptions)
 }
 
 run()
-module.exports = exports = run
