@@ -1,5 +1,5 @@
 {
-  "name": "producthuntdaily-bot",
+  "name": "ph-hn-telegrambot",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "request": "^2.81.0"
   },
   "scripts": {
+    "start": "node index.js",
     "ph": "node producthunt.js",
     "hn": "node hackernews.js"
   }
