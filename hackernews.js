@@ -13,7 +13,6 @@ const bot = new TelegramBot(TOKEN)
 
 function sendStoriesMessage(storiesList, message, index=0){
     if(index >= storiesList.length){
-        console.log(message)
         bot.sendMessage(CHANNEL_CHAT_ID, message, {
             parse_mode: 'markdown',
             disable_web_page_preview: true
