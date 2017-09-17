@@ -47,21 +47,17 @@ function getTodayPosts(error, response, body){
     }
 }
 
-function run(){
-    const options = {
-        url: 'https://api.producthunt.com/v1/oauth/token',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Host': 'api.producthunt.com'
-        },
-        json: {
-            client_id: '7a80da59a58ce2c6d8a3c657d2784192ffaba695bf801560289f44e191bb4cc2',
-            client_secret: '2f151d31ac00292168366c44cd11ae47d2c8066ffe583b7472a6dffc565616e0',
-            grant_type: 'client_credentials'
-        }
-    };
-    request.post(options, getTodayPosts)    
-}
-
-module.exports = exports = run
+const options = {
+    url: 'https://api.producthunt.com/v1/oauth/token',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Host': 'api.producthunt.com'
+    },
+    json: {
+        client_id: '7a80da59a58ce2c6d8a3c657d2784192ffaba695bf801560289f44e191bb4cc2',
+        client_secret: '2f151d31ac00292168366c44cd11ae47d2c8066ffe583b7472a6dffc565616e0',
+        grant_type: 'client_credentials'
+    }
+};
+request.post(options, getTodayPosts)    
