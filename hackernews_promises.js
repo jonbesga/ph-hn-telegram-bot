@@ -38,10 +38,11 @@ function generateStoryMessage(story, index){
         request(options, function nextStory(error, response, body){
             if(error){ reject(); }
             const storyTitle = body.title
-            const storyURL = body.url
+            let storyURL = body.url
             const storyComments = `https://news.ycombinator.com/item?id=${body.id}`
-            
+
             if(storyURL){
+                storyURL = storyURL.replace(/_/,'\\\\_')
                 message = `${index+1}. [${storyTitle}](${storyURL}) | [Comments](${storyComments})`
             }
             else{
@@ -84,14 +85,17 @@ function run(){
                             bot.sendPhoto(CHANNEL_CHAT_ID, 'hn.png', {
                                 caption: 'Loading daily #hackernews'
                             }).then(() => {
+                                console.log(topMessage)
                                 bot.sendMessage(CHANNEL_CHAT_ID, topMessage, {
                                     parse_mode: 'markdown',
                                     disable_web_page_preview: true
                                 }).then(() => {
+                                    console.log(showMessage)
                                     bot.sendMessage(CHANNEL_CHAT_ID, showMessage, {
                                         parse_mode: 'markdown',
                                         disable_web_page_preview: true
                                     }).then(() => {
+                                        console.log(askMessage)
                                         bot.sendMessage(CHANNEL_CHAT_ID, askMessage, {
                                             parse_mode: 'markdown',
                                             disable_web_page_preview: true

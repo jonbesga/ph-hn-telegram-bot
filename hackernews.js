@@ -27,10 +27,11 @@ function sendStoriesMessage(storiesList, message, index=0){
 
     request(options, function nextStory(error, response, body){
         const storyTitle = body.title
-        const storyURL = body.url
+        let storyURL = body.url
         const storyComments = `https://news.ycombinator.com/item?id=${body.id}`
 
         if(storyURL){
+            // storyURL = storyURL.replace(/_/,'\\\\_')
             message += `${index+1}. [${storyTitle}](${storyURL}) | [Comments](${storyComments})\n`
         }
         else{
