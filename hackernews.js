@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const TOKEN = process.env.TOKEN
 const CHANNEL_CHAT_ID = process.env.CHANNEL_CHAT_ID
-const AMOUNT_OF_STORIES = 5
+const AMOUNT_OF_HN_STORIES = process.env.AMOUNT_OF_HN_STORIES
 
 const bot = new TelegramBot(TOKEN)
 
